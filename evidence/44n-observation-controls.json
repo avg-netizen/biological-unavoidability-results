@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "periodic_template_words_checked": 32256,
+  "lifted_edges_checked": 258048,
+  "indistinguishable_regions_checked": 254,
+  "arbitrarily_long_match_family_controls": 128,
+  "scope": "Finite controls. Infinite universality, nonidentification and computability reductions are hand proofs in 44m."
+}

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10.2" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Additional structural and cellular-automaton observations</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 11pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Additional structural and cellular-automaton
+observations</h1>
+<p class="date">10 September 2026 — optional supplement</p>
+</header>
+<p>These hand arguments supplement the main author note. They are not
+part of the supplied Lean certificate, and no literature priority is
+claimed. The first two use Alexander’s population axioms as stated in
+the main note.</p>
+<h1 id="bounded-root-path-spread-forces-universality">1. Bounded
+root-path spread forces universality</h1>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d(v)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D(v)</annotation></semantics></math>
+be the shortest and longest
+root-to-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
+path lengths. Both exist because the ancestor set is finite. Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta(v)=D(v)-d(v)</annotation></semantics></math>.</p>
+<p><strong>Proposition.</strong> If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">\Delta(v)\le K</annotation></semantics></math>
+at infinitely many vertices, for some fixed finite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>,
+then every label sequence is realized. More precisely, each sequence is
+realized from some vertex within
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+edges of a root.</p>
+<p>Fix a desired sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>
+and prepend any word of length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>,
+obtaining
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.
+At a vertex
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">\Delta(v)\le K</annotation></semantics></math>,
+prescribe the first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D(v)</annotation></semantics></math>
+symbols of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+backwards until a root is reached. If the resulting path has length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>,
+then</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>ℓ</mi><mo>≤</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>j</mi><mo>=</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>ℓ</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>K</mi><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">d(v)\le\ell\le D(v),\qquad j=D(v)-\ell\in\{0,\ldots,K\}.</annotation></semantics></math></p>
+<p>Read forwards, its labels are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false" form="prefix">[</mo><mi>j</mi><mo>:</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">a[j:D(v)]</annotation></semantics></math>.
+Delete the first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>−</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">K-j</annotation></semantics></math>
+edges. The remaining path starts within
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+edges of a root and spells the first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">D(v)-K</annotation></semantics></math>
+symbols of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>,
+whenever
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">D(v)\ge K</annotation></semantics></math>.
+The infinitely many chosen vertices have unbounded
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d(v)</annotation></semantics></math>,
+because only finitely many vertices are reachable within any fixed
+number of steps from the finitely many roots. Thus arbitrarily long
+prefixes of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>
+occur from the finite set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mi>K</mi></msub><annotation encoding="application/x-tex">V_K</annotation></semantics></math>.
+König’s lemma supplies an infinite realization.</p>
+<p>Consequently every non-universal population has only finitely many
+vertices with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">\Delta(v)\le K</annotation></semantics></math>,
+for each finite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>.
+In particular, a population whose edges all advance one synchronous
+generation realizes every sequence; such a search restriction cannot
+produce an avoider. The construction in the main note uses edge lengths
+1 and 2.</p>
+<h1 id="minimum-uniform-branching-and-finite-degree-defects">2. Minimum
+uniform branching and finite degree defects</h1>
+<p>For an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>-letter
+alphabet, a population cannot have outdegree at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math>
+at every vertex. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+is finite, ancestrally closed, contains all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+roots, and has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+vertices, then</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mo stretchy="false" form="prefix">|</mo><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>N</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">n(N-r)\le |E(F)|\le(n-1)N,</annotation></semantics></math></p>
+<p>forcing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≤</mo><mi>n</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">N\le nr</annotation></semantics></math>.
+Such sets exhaust the infinite graph, a contradiction. For example take
+increasing birthdate sublevels containing all roots.</p>
+<p>If instead every outdegree is at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>n</mi><mo>−</mo><mrow><mi mathvariant="normal">outdeg</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(v)=n-\operatorname{outdeg}(v)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">indeg</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">i(v)=\operatorname{indeg}(v)-n</annotation></semantics></math>
+for non-roots. Both are nonnegative. Exact counting on the same
+ancestral sets gives</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo>,</mo><mi>V</mi><mo>∖</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mi>n</mi><mi>r</mi><mo>−</mo><munder><mo>∑</mo><mrow><mi>v</mi><mo>∈</mo><mi>F</mi></mrow></munder><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><munder><mo>∑</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mrow><mi>v</mi><mo>∈</mo><mi>F</mi></mrow></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mrow><mi>v</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> not a root</mtext></mrow></mrow></mtd></mtr></mtable></munder><mi>i</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">|E(F,V\backslash F)|=nr-\sum_{v\in F}o(v)
+ -\sum_{\substack{v\in F\\v\text{ not a root}}}i(v).</annotation></semantics></math></p>
+<p>Hence the total integer degree defect is at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">nr</annotation></semantics></math>.
+Outside finitely many exceptional vertices, indegree and outdegree are
+exactly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+with one incoming edge of each label. Every such ancestral cut has at
+most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">nr</annotation></semantics></math>
+crossing edges. The binary avoiding construction lies at this minimum
+uniform branching threshold; degree two does not force universality.</p>
+<h1 id="a-directional-ca-bound-under-incomplete-rule-information">3. A
+directional CA bound under incomplete rule information</h1>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
+be a finite set of spatial displacements from a parent cell to a child.
+Assume a newborn has at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b\ge1</annotation></semantics></math>
+distinct live predecessors among those displacements, and a survivor
+remains at its own position. For a nonempty finite live configuration,
+put</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>⋅</mo><mi>z</mi><mo>:</mo><mi>z</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is live at time </mtext><mspace width="0.333em"></mspace></mrow><mi>t</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">H_a(t)=\max\{a\cdot z:z\text{ is live at time }t\},</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+is any linear spatial direction, and let</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>κ</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mrow><mtext mathvariant="normal">the </mtext><mspace width="0.333em"></mspace></mrow><mi>b</mi><mrow><mtext mathvariant="normal">th largest of </mtext><mspace width="0.333em"></mspace></mrow><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>⋅</mo><mi>d</mi><mo>:</mo><mi>d</mi><mo>∈</mo><mi>D</mi><mo stretchy="false" form="postfix">}</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\kappa_b(a)=\max\bigl(0,\text{the }b\text{th largest of }
+                           \{a\cdot d:d\in D\}\bigr).</annotation></semantics></math></p>
+<p><strong>Proposition.</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msub><mi>H</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>κ</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H_a(t+1)\le H_a(t)+\kappa_b(a)</annotation></semantics></math>
+whenever the next configuration is nonempty, hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msub><mi>H</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>t</mi><msub><mi>κ</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H_a(t)\le H_a(0)+t\kappa_b(a)</annotation></semantics></math>
+while live cells remain.</p>
+<p>Among any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
+live predecessor displacements, at least one has projection at most the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>th
+largest projection in all of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>.
+For a birth at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>,
+choose that predecessor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>−</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">z-d</annotation></semantics></math>.
+Then</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>⋅</mo><mi>z</mi><mo>=</mo><mi>a</mi><mo>⋅</mo><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>a</mi><mo>⋅</mo><mi>d</mi><mo>≤</mo><msub><mi>H</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>κ</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">a\cdot z=a\cdot(z-d)+a\cdot d\le H_a(t)+\kappa_b(a).</annotation></semantics></math></p>
+<p>Survivors satisfy the same inequality because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>κ</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\kappa_b(a)\ge0</annotation></semantics></math>.
+An empty configuration cannot produce births under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b\ge1</annotation></semantics></math>,
+so the undefined maximum on an empty set causes no need for a new case
+of the bound.</p>
+<p>This supplies a spatial envelope without specifying the entire local
+rule. It does not predict the future configuration or assert existence
+of a spaceship achieving the envelope. It is closely related to the
+established CA speed-limit arguments of Nathaniel Johnston, <em>The
+B36/S125 “2x2” Life-Like Cellular Automaton</em>, <a
+href="https://arxiv.org/abs/1203.1644">arXiv:1203.1644</a>, Section 3,
+and Alexander’s application. It is included as a reusable formulation
+under partial rule information, not advertised as a new sharp
+speed-limit theorem.</p>
+</body>
+</html>

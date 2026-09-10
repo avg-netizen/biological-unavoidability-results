@@ -1,0 +1,10 @@
+'BiologicalAvoidance.path_forces_eventual_periodicity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BiologicalAvoidance.binary_population' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BiologicalAvoidance.finite_alphabet_avoidance' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+{
+  "toolchain": "leanprover/lean4:v4.32.0-rc1",
+  "exit_code": 0,
+  "seconds": 84.756,
+  "contains_sorryAx": false
+}
