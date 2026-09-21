@@ -8,6 +8,14 @@ Start with **[results.pdf](results.pdf)**, or the equivalent
 are self-contained. The later sections give scoped answers and extensions to
 the questions in *Biologically unavoidable sequences*.
 
+**September 20/21 continuation:**
+[countable-avoidance.md](countable-avoidance.md) proves simultaneous avoidance
+of any prescribed countable family of aperiodic targets, at optimal outdegree
+for every finite alphabet. [complement-and-barriers.md](complement-and-barriers.md)
+gives explicit complement avoidance and an $O((i+1)\log(i+2))$ Thue–Morse
+matching cutoff. PDF and HTML versions of both addenda are included. These
+new hand arguments and finite controls are outside the older Lean coverage.
+
 - [cover-note.md](cover-note.md) is an editable covering-message draft.
 - [additional-results.pdf](additional-results.pdf) is an optional supplement
   on root-path spread, minimum branching and a directional CA bound; its

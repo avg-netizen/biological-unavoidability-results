@@ -25,3 +25,13 @@ No novelty, acceptance or external review is inferred from a negative search.
 Only our research text and supporting artifacts are included. Primary papers
 are linked in the note. The author packet and the separately prepared submission
 package are independent local deliverables; no correspondence was sent.
+
+September 20/21 continuation: `complement-and-barriers` and
+`countable-avoidance` are new self-contained addenda. They establish explicit
+complement avoidance, an a priori Thue–Morse matching bound, countable joint
+avoidance and attainment of optimal outdegree for every finite alphabet.
+Their Python controls are copied into `evidence`; their infinite claims have
+hand proofs, with no new Lean certification or independent review asserted.
+The original manuscript now points to the addenda where a former quantitative
+question has been advanced. The separate submission has not been revised to
+include these results. `SHA256SUMS` has been refreshed for the current packet.

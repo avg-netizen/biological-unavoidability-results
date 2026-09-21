@@ -1,0 +1,176 @@
+---
+title: "Simultaneous complement avoidance and explicit Thue–Morse barriers"
+date: "20 September 2026 — continuation for discussion"
+geometry: margin=1in
+fontsize: 11pt
+---
+
+This continuation resolves two questions left in the earlier packet: simultaneous
+avoidance of the two complementary Thue–Morse sequences, and an explicit
+finite matching bound for the particular Thue–Morse population. The first
+result holds for every non-eventually-periodic binary sequence. These are hand
+proofs with finite computational controls; independent review and priority
+checking remain. The earlier Lean files do not certify these additions.
+
+# 1. One population avoids both complementary targets
+
+For a binary sequence $s$, write $\bar s(k)=1-s(k)$ and put
+
+$$r(2j)=s(j),\qquad r(2j+1)=1-s(j).$$
+
+The population $P_s$ has vertices $\mathbb N$, birthdate $v$ at vertex $v$,
+and, for every $v\ge2$, precisely the incoming edges
+
+$$v-1\longrightarrow v\text{ labelled }r(v),\qquad
+v-2\longrightarrow v\text{ labelled }1-r(v).$$
+
+There is no edge $0\to1$. The roots are 0 and 1; every non-root has a
+parent of each label; every vertex has at most two children. All birthdate
+sublevel sets are finite. Thus this is an Alexander population in the
+edge-labelled convention, with no restriction on a realizing path's start.
+
+**Theorem.** If $s$ is not eventually periodic, $P_s$ realizes neither $s$
+nor $\bar s$.
+
+The original packet proves avoidance of $s$. Here is a self-contained joint
+argument. Let $v_0,v_1,\ldots$ be a hypothetical matching path and put
+$d_k=v_k-2k$. Every increment of $d_k$ is $-1$ or 0.
+
+For target $s$, induction gives $v_k\ge2k$: at $v_k=2k$, the increment-one
+edge, if present, has label $r(2k+1)=1-s(k)$ and cannot match. Hence
+$d_k\ge0$ and eventually $d_k=d$ is constant.
+
+For target $\bar s$, the corresponding induction gives $v_k\ge2k-1$.
+If $v_k>2k-1$, any edge preserves the next lower bound. At equality, an
+increment-one edge has label $r(2k)=s(k)$ and cannot match. Thus
+$d_k\ge-1$ and again it stabilizes. In fact an infinite matching path cannot
+visit $d_k=-1$: both outgoing edges there have label $s(k)$, since the
+increment-two label is $1-r(2k+1)=s(k)$. This also handles that exceptional
+offset without invoking a shift of length zero.
+
+On the constant-offset tail, every increment is two. For $d\ge0$, put
+$q=\lfloor d/2\rfloor+1>0$. The matching equation is as follows:
+
+For target $s$: even $d$ gives $s(k)=1-s(k+q)$, and odd $d$ gives
+$s(k)=s(k+q)$. For target $\bar s$: even $d$ gives $s(k)=s(k+q)$,
+and odd $d$ gives $s(k)=1-s(k+q)$.
+
+Either equality makes $s$ eventually periodic, with period $q$ or $2q$.
+This proves the theorem. The boundary $-1$, rather than 0, is the only new
+ingredient needed for the complementary target.
+
+For a periodic control of period $p$, the construction correctly fails to
+avoid either target: the increment-two paths starting at $2p-1$ and $2p-2$
+realize $s$ and $\bar s$, respectively. These controls include $p=1$ and
+the actual root convention.
+
+**Consequence for the two-phase substitution gadget.** The earlier exact
+relation is
+
+$$\mu(x)\in L(Q(P))\quad\Longleftrightarrow\quad
+x\in L(P)\text{ or }\bar x\in L(P),\qquad \mu(0)=01,\ \mu(1)=10.$$
+
+Therefore $Q(P_s)$ avoids $\mu(s)$ and $\mu(\bar s)$ whenever $s$ is
+aperiodic. For Thue–Morse $t$, both $t$ and $\bar t$ are fixed by $\mu$,
+so $P_t$ and every iterate $Q^n(P_t)$ avoid both. This settles the
+simultaneous-avoidance question that previously prevented this particular
+use of the gadget. It does not construct an intersection operation for
+arbitrary population languages.
+
+# 2. A short-run lemma for Thue–Morse
+
+Write $t(k)=\operatorname{popcount}(k)\bmod2$, and, for $q\ge1$, define
+
+$$c_q(k)=t(k)\mathbin{\mathrm{xor}}t(k+q),\qquad
+\lambda(q)=2^{\nu_2(q)}.$$
+
+**Lemma.** Every constant consecutive run of $c_q$ has length at most
+$3\lambda(q)$, independently of where the run starts.
+
+The identities $t(2n)=t(n)$ and $t(2n+1)=1-t(n)$ imply that $t$ has no
+three consecutive equal bits: any three positions include an even/odd pair
+$(2n,2n+1)$.
+
+First let $q=2r+1$ be odd. Then
+
+$$c_q(2n)=1\mathbin{\mathrm{xor}}t(n)\mathbin{\mathrm{xor}}t(n+r),$$
+$$c_q(2n+1)=1\mathbin{\mathrm{xor}}t(n)\mathbin{\mathrm{xor}}t(n+r+1).$$
+
+Four equal values starting at $2n$ would force
+$t(n+r)=t(n+r+1)=t(n+r+2)$, by comparing the two aligned pairs.
+Four equal values starting at $2n+1$ would instead force
+$t(n)=t(n+1)=t(n+2)$, by comparing the pairs $(2n+1,2n+2)$ and
+$(2n+3,2n+4)$. Both are impossible. Thus the bound is three for odd $q$.
+
+Finally $c_{2q}(2n)=c_{2q}(2n+1)=c_q(n)$. Each doubling of the shift
+doubles each constant run. Removing all powers of two proves the lemma.
+This elementary symbolic-sequence lemma is used here as a tool; no claim
+that the lemma itself is new is intended.
+
+# 3. An explicit bound for every starting vertex
+
+For the Thue–Morse population $P_t$, $r=t$. Define
+
+$$W(i)=\sum_{d=0}^{i}\lambda\!\left(\left\lfloor d/2\right\rfloor+1\right).$$
+
+**Theorem.** A path starting at vertex $i$ and matching a prefix of $t$ has
+at most $i+3W(i)$ edges. A path matching a prefix of $\bar t$ has at most
+$i+1+3W(i)$ edges. In particular neither target can match
+
+$$B(i)=i+2+3W(i)$$
+
+edges from that vertex. This is a sufficient barrier, not a claimed optimal
+one.
+
+To prove it, separate increment-one edges from maximal consecutive runs of
+increment-two edges. Each increment-one edge decreases $d_k$ by one; there
+are at most $i$ such edges for target $t$ and at most $i+1$ for target
+$\bar t$. Each nonnegative offset $d$ is visited in at most one plateau.
+On its increment-two run, the equations above make $c_q(k)$ constant,
+where $q=\lfloor d/2\rfloor+1$. The lemma bounds this run by
+$3\lambda(q)$. Summing over $0\le d\le i$ proves the stated bounds.
+Offset $-1$ contributes no edges for the complementary target.
+
+The bound grows as $O((i+1)\log(i+2))$. For an explicit estimate put
+$m=\lfloor i/2\rfloor+1$ and
+
+$$S(m)=\sum_{q=1}^{m}\lambda(q)
+=m+\sum_{j\ge1}2^{j-1}\left\lfloor m/2^j\right\rfloor
+\le m\left(1+\tfrac12\lfloor\log_2m\rfloor\right).$$
+
+Since $W(i)\le2S(m)$,
+
+$$B(i)\le i+2+6m+3m\lfloor\log_2m\rfloor.$$
+
+For exact integer evaluation, $S(0)=0$ and
+$S(m)=\lceil m/2\rceil+2S(\lfloor m/2\rfloor)$. Also
+$W(2h+1)=2S(h+1)$ and $W(2h)=2S(h)+\lambda(h+1)$.
+
+This replaces a qualitative termination argument for a *fixed target* with
+a computable a priori cutoff. It does not contradict the earlier absence
+of a target-uniform bound at fixed start: an arbitrary aperiodic target may
+begin with an arbitrarily long constant block.
+
+# 4. Checks, limitations and remaining questions
+
+The accompanying `evidence/44s-complement-barrier-checks.py` enumerates
+finite paths directly from the graph's two incoming-edge formulas, checks
+both boundary invariants on all short binary targets, uses periodic positive
+controls, and compares actual Thue–Morse first-empty times with $B(i)$.
+It also checks the short-run lemma over finite ranges. The JSON records the
+precise ranges and outcomes; finite checks are not the infinite proofs.
+
+The logarithmic factor may be avoidable: the proof separately charges every
+offset's longest possible run even when those runs cannot be concatenated
+along one matching path. A sharp asymptotic or exact barrier remains open
+locally. **September 21 continuation:** `countable-avoidance.md` now settles
+simultaneous avoidance for arbitrary countable aperiodic families, including
+finite collections, at optimal degree for every finite alphabet. Other
+embedding/homomorphism versions of universal avoiding populations and more
+informative ordinal invariants remain outside these results.
+
+Source: Samuel A. Alexander, *Biologically unavoidable sequences*, Electronic
+Journal of Combinatorics **20**(1) (2013), P31,
+[doi:10.37236/3035](https://doi.org/10.37236/3035). The population and earlier
+classification proof are in this packet's `results.md`. The claims here are
+local extensions of that construction, not attributed to Alexander.

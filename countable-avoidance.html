@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10.2" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Simultaneous avoidance of countable families</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 11pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Simultaneous avoidance of countable families</h1>
+<p class="date">21 September 2026 — continuation for discussion</p>
+</header>
+<p><strong>Local theorem, with a hand proof below.</strong> A countable
+family of sequences over a fixed finite alphabet has a single avoiding
+population if and only if none of its members is eventually periodic.
+For an alphabet of size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>,
+the population can have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+roots and at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+children per vertex, which is the smallest possible uniform outdegree
+bound. If the sequences have a uniformly computable enumeration and are
+all non-eventually-periodic, such a population can be constructed
+computably. Independent review and external priority checking remain;
+this addition has not been checked in Lean.</p>
+<p>The earlier explicit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mi>s</mi></msub><annotation encoding="application/x-tex">P_s</annotation></semantics></math>
+construction avoided one prescribed sequence;
+<code>complement-and-barriers.md</code> proves that it also avoids its
+complement. The present result treats arbitrary countable families,
+using a different label sequence built by successive finite
+extensions.</p>
+<h1 id="a-common-space-of-populations">1. A common space of
+populations</h1>
+<p>For any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">}</mo><mi mathvariant="double-struck">ℕ</mi></msup></mrow><annotation encoding="application/x-tex">r\in\{0,1\}^{\mathbb N}</annotation></semantics></math>,
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>G</mi><mi>r</mi></msub><annotation encoding="application/x-tex">G_r</annotation></semantics></math>
+have vertices
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℕ</mi><annotation encoding="application/x-tex">\mathbb N</annotation></semantics></math>,
+birthdate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>,
+roots 0 and 1, and precisely these incoming edges for each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">v\ge2</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>−</mo><mn>1</mn><mo>→</mo><mi>v</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> labelled </mtext><mspace width="0.333em"></mspace></mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>v</mi><mo>−</mo><mn>2</mn><mo>→</mo><mi>v</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> labelled </mtext><mspace width="0.333em"></mspace></mrow><mn>1</mn><mo>−</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">v-1\longrightarrow v\text{ labelled }r(v),\qquad
+v-2\longrightarrow v\text{ labelled }1-r(v).</annotation></semantics></math></p>
+<p>There is no edge
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\to1</annotation></semantics></math>.
+Every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>G</mi><mi>r</mi></msub><annotation encoding="application/x-tex">G_r</annotation></semantics></math>
+satisfies the population axioms: infinite vertex set, finitely many
+roots, finite birthdate sublevels, birthdates increasing along edges,
+one incoming parent of each label at every non-root, and outdegree at
+most two. Every infinite path has increments one or two. The values
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r(0),r(1)</annotation></semantics></math>
+do not label edges but are harmless coordinates.</p>
+<h1 id="finite-extension-lemma">2. Finite-extension lemma</h1>
+<p><strong>Lemma.</strong> Fix a non-eventually-periodic binary sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>
+and any prescribed prefix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>…</mi><mo>,</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r(0),\ldots,r(N)</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N\ge1</annotation></semantics></math>.
+There is an extension
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+for which
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>G</mi><mi>r</mi></msub><annotation encoding="application/x-tex">G_r</annotation></semantics></math>
+avoids
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>
+from every starting vertex.</p>
+<p>Set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mi>−</mi><mi>N</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">C=-N-2</annotation></semantics></math>
+and prescribe the unassigned tail by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>s</mi><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">⌊</mo><mfrac><mrow><mi>v</mi><mo>−</mo><mi>C</mi></mrow><mn>2</mn></mfrac><mo stretchy="true" form="postfix">⌋</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi mathvariant="normal">x</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo>−</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mrow><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>2</mn></mrow><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>v</mi><mo>&gt;</mo><mi>N</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">r(v)=s\!\left(\left\lfloor\frac{v-C}{2}\right\rfloor\right)
+\mathbin{\mathrm{xor}}((v-C)\bmod2),\qquad v&gt;N.</annotation></semantics></math></p>
+<p>All indices on the right are nonnegative. The old prefix is
+unchanged. Suppose there were an infinite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>-matching
+path
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>0</mn></msub><mo>,</mo><msub><mi>v</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">v_0,v_1,\ldots</annotation></semantics></math>
+and put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>k</mi></msub><mo>=</mo><msub><mi>v</mi><mi>k</mi></msub><mo>−</mo><mn>2</mn><mi>k</mi></mrow><annotation encoding="application/x-tex">d_k=v_k-2k</annotation></semantics></math>.
+Each step changes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>k</mi></msub><annotation encoding="application/x-tex">d_k</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math>
+or 0.</p>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+be its first index with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>j</mi></msub><mo>&gt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">v_j&gt;N</annotation></semantics></math>;
+this exists because vertices strictly increase. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">j=0</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>j</mi></msub><mo>=</mo><msub><mi>v</mi><mn>0</mn></msub><mo>≥</mo><mn>0</mn><mo>&gt;</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">d_j=v_0\ge0&gt;C</annotation></semantics></math>.
+Otherwise
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>j</mi></msub><mo>≤</mo><mi>N</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">v_j\le N+2</annotation></semantics></math>
+because edges have length at most two. Also
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≤</mo><msub><mi>v</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">j\le v_j</annotation></semantics></math>
+because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>0</mn></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">v_0\ge0</annotation></semantics></math>
+and every increment is at least one. Consequently</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>j</mi></msub><mo>=</mo><msub><mi>v</mi><mi>j</mi></msub><mo>−</mo><mn>2</mn><mi>j</mi><mo>≥</mo><mi>−</mi><msub><mi>v</mi><mi>j</mi></msub><mo>≥</mo><mi>−</mi><mi>N</mi><mo>−</mo><mn>2</mn><mo>=</mo><mi>C</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">d_j=v_j-2j\ge-v_j\ge-N-2=C.</annotation></semantics></math></p>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">k\ge j</annotation></semantics></math>,
+the lower bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>k</mi></msub><mo>≥</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">d_k\ge C</annotation></semantics></math>
+is invariant. At equality,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>k</mi></msub><mo>=</mo><mn>2</mn><mi>k</mi><mo>+</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">v_k=2k+C</annotation></semantics></math>
+and an increment-one edge would have label</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>v</mi><mi>k</mi></msub><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>s</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">x</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi></mrow><mn>1</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">r(v_k+1)=s(k)\mathbin{\mathrm{xor}}1,</annotation></semantics></math></p>
+<p>so it cannot match. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>k</mi></msub><mo>&gt;</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">d_k&gt;C</annotation></semantics></math>,
+decreasing by at most one preserves the bound. The edge endpoints used
+here are beyond
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
+so the prescribed tail formula really applies; the arbitrary old prefix
+is no longer involved.</p>
+<p>The bounded nonincreasing integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>k</mi></msub><annotation encoding="application/x-tex">d_k</annotation></semantics></math>
+therefore stabilizes at some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>≥</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">D\ge C</annotation></semantics></math>.
+All subsequent increments are two. Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mi>D</mi><mo>−</mo><mi>C</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h=D-C\ge0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>h</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q=\lfloor h/2\rfloor+1&gt;0</annotation></semantics></math>.
+Matching the increment-two edge says</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>k</mi><mo>+</mo><mi>D</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">s(k)=1-r(2k+D+2).</annotation></semantics></math></p>
+<p>For even
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+this is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi>s</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">s(k)=1-s(k+q)</annotation></semantics></math>;
+for odd
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+it is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>s</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">s(k)=s(k+q)</annotation></semantics></math>.
+These give eventual periods
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>q</mi></mrow><annotation encoding="application/x-tex">2q</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>,
+respectively, contradicting the hypothesis on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>.
+This proves the lemma, including arbitrary starts and arbitrary
+preserved finite prefixes.</p>
+<h1 id="simultaneous-avoidance">3. Simultaneous avoidance</h1>
+<p>For a fixed target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>
+and start
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+define</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mrow><mi>s</mi><mo>,</mo><mi>i</mi></mrow></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>r</mi><mo>:</mo><msub><mi>G</mi><mi>r</mi></msub><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> has no infinite </mtext><mspace width="0.333em"></mspace></mrow><mi>s</mi><mrow><mtext mathvariant="normal">-matching path from </mtext><mspace width="0.333em"></mspace></mrow><mi>i</mi><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">U_{s,i}=\{r:G_r\text{ has no infinite }s\text{-matching path from }i\}.</annotation></semantics></math></p>
+<p>This set is open in Cantor space. The matching-prefix tree is
+finitely branching. By König’s lemma, absence of an infinite branch
+means that some finite matching level is empty. A level of depth
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
+only reads labels at vertices at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>+</mo><mn>2</mn><mi>b</mi></mrow><annotation encoding="application/x-tex">i+2b</annotation></semantics></math>,
+so its emptiness is preserved by fixing a finite prefix of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>.</p>
+<p>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>
+is non-eventually-periodic,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mrow><mi>s</mi><mo>,</mo><mi>i</mi></mrow></msub><annotation encoding="application/x-tex">U_{s,i}</annotation></semantics></math>
+is dense: any finite cylinder can first be extended through coordinate
+1, then extended by the preceding lemma to a member of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mrow><mi>s</mi><mo>,</mo><mi>i</mi></mrow></msub><annotation encoding="application/x-tex">U_{s,i}</annotation></semantics></math>.</p>
+<p>Now let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>s</mi><mi>j</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>j</mi><mo>∈</mo><mi>J</mi></mrow></msub></mrow><annotation encoding="application/x-tex">(s_j)_{j\in J}</annotation></semantics></math>
+be a countable family of non-eventually-periodic binary sequences. The
+set of simultaneous avoiders is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>⋂</mo><mrow><mi>j</mi><mo>∈</mo><mi>J</mi></mrow></munder><munder><mo>⋂</mo><mrow><mi>i</mi><mo>∈</mo><mi mathvariant="double-struck">ℕ</mi></mrow></munder><msub><mi>U</mi><mrow><msub><mi>s</mi><mi>j</mi></msub><mo>,</mo><mi>i</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\bigcap_{j\in J}\bigcap_{i\in\mathbb N}U_{s_j,i}.</annotation></semantics></math></p>
+<p>It is a countable intersection of dense open sets in Cantor space,
+hence comeagre and nonempty by the Baire category theorem. Any member
+gives the required single two-root, degree-two population. An empty
+family is trivial.</p>
+<p>Conversely, a family containing an eventually periodic member cannot
+have an avoiding population, by Alexander’s eventual-periodic
+unavoidability theorem (with the boundary repair recorded in
+<code>results.md</code>). This proves the stated classification for
+countable binary families.</p>
+<p>This is a category statement about the choice of <strong>edge labels
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math></strong>,
+not an almost-sure statement under random labels. No measure-one claim
+is made.</p>
+<h1 id="effective-construction-under-a-uniform-promise">4. Effective
+construction under a uniform promise</h1>
+<p>The Baire proof can be implemented directly. Assume
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">s_j(k)</annotation></semantics></math>
+is uniformly computable in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(j,k)</annotation></semantics></math>,
+with the promise that every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>j</mi></msub><annotation encoding="application/x-tex">s_j</annotation></semantics></math>
+is non-eventually periodic. Enumerate all requirements
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>,</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(j,i)</annotation></semantics></math>,
+and maintain a finite prefix of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+extending through at least coordinate 1.</p>
+<p>At a stage for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>,</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(j,i)</annotation></semantics></math>:</p>
+<ol type="1">
+<li>Form the lemma’s temporary infinite extension of the current prefix
+using target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>j</mi></msub><annotation encoding="application/x-tex">s_j</annotation></semantics></math>.</li>
+<li>Enumerate the finite matching levels from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+in this temporary population until the first empty level. The lemma and
+König’s lemma guarantee that this search terminates.</li>
+<li>Freeze all bits of that extension read by the search, together with
+at least one further coordinate beyond the old prefix.</li>
+</ol>
+<p>The finite barrier for this requirement persists under every later
+extension. Every requirement is visited, and the prefix grows at every
+stage. To compute one desired output bit, run stages until that bit has
+been frozen. Each stage terminates and uses finitely many values of the
+uniformly computable targets, so the final
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+is computable. The same construction works relative to an oracle
+presenting an arbitrary sequence of targets.</p>
+<p>No algorithm recognizing the promise is asserted. There is no
+contradiction with taking the countable family of <strong>all computable
+aperiodic sequences</strong>: the existence theorem handles that family,
+but it has no uniformly computable enumeration containing only aperiodic
+sequences and covering them all. Indeed, such an enumeration would yield
+a computable
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+avoiding all of them. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+were aperiodic, the increment-one path
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">1,2,3,\ldots</annotation></semantics></math>
+would realize the computable aperiodic sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">r(2),r(3),\ldots</annotation></semantics></math>,
+a contradiction. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+were eventually periodic, that same path realizes an eventually periodic
+word but does not by itself settle the contradiction; use instead the
+next paragraph’s periodic-tail argument.</p>
+<p>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+is eventually periodic with period
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>G</mi><mi>r</mi></msub><annotation encoding="application/x-tex">G_r</annotation></semantics></math>
+realizes every binary sequence. For any desired finite word, choose its
+endpoint sufficiently far past the exceptional prefix and follow its
+uniquely labelled incoming parents backwards. All vertices of this
+finite path can be kept in the periodic tail. Translate the path
+backwards by a multiple of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+until its start lies in a fixed tail interval of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+vertices. The edge labels remain the same and all vertices remain in the
+tail. Arbitrarily long prescribed prefixes are thus realized from this
+finite set of starts. König’s lemma gives an infinite realizing path.
+This proves universality and completes the contradiction for eventually
+periodic
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+as well.</p>
+<h1 id="optimal-degree-for-every-finite-alphabet">5. Optimal degree for
+every finite alphabet</h1>
+<p>Identify an alphabet of size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="double-struck">ℤ</mi><mi>/</mi><mi>n</mi><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">\mathbb Z/n\mathbb Z</annotation></semantics></math>.
+Use vertices
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℕ</mi><annotation encoding="application/x-tex">\mathbb N</annotation></semantics></math>,
+roots
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0,\ldots,n-1</annotation></semantics></math>,
+birthdate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>,
+and, for each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>≥</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">v\ge n</annotation></semantics></math>,
+incoming edges
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>−</mo><mi>a</mi><mo>→</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">v-a\to v</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>a</mi><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">1\le a\le n</annotation></semantics></math>.
+At each endpoint assign the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+labels bijectively to these edges. All such assignments give populations
+of outdegree at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
+The parameter space is a product of finite permutation spaces, one for
+each endpoint, and is a Baire space.</p>
+<p><strong>General finite-extension lemma.</strong> Preserve arbitrary
+incoming-label permutations at endpoints through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N\ge n-1</annotation></semantics></math>.
+For a fixed aperiodic target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>,
+set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C=-(n-1)(N+n)</annotation></semantics></math>
+and label all later edges by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo>−</mo><mi>a</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>s</mi><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">⌊</mo><mfrac><mrow><mi>v</mi><mo>−</mo><mi>C</mi></mrow><mi>n</mi></mfrac><mo stretchy="true" form="postfix">⌋</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>a</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo>−</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mrow><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>n</mi></mrow><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>1</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi>v</mi><mo>&gt;</mo><mi>N</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\ell(v-a,v)=s\!\left(\left\lfloor\frac{v-C}{n}\right\rfloor\right)
++a-((v-C)\bmod n)-1\pmod n,\qquad v&gt;N.</annotation></semantics></math></p>
+<p>As
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+ranges from 1 to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+these labels are a permutation, as required. Suppose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>k</mi></msub><annotation encoding="application/x-tex">v_k</annotation></semantics></math>
+were an infinite matching path and put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>k</mi></msub><mo>=</mo><msub><mi>v</mi><mi>k</mi></msub><mo>−</mo><mi>n</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">d_k=v_k-nk</annotation></semantics></math>.
+Its increments lie in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>−</mo><mi>n</mi><mo>,</mo><mi>…</mi><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{1-n,\ldots,0\}</annotation></semantics></math>.
+At the first entry
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+into vertices beyond
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
+either
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">j=0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>j</mi></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_j\ge0</annotation></semantics></math>,
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>j</mi></msub><mo>≤</mo><mi>N</mi><mo>+</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">v_j\le N+n</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≤</mo><msub><mi>v</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">j\le v_j</annotation></semantics></math>,
+giving</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>j</mi></msub><mo>≥</mo><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>v</mi><mi>j</mi></msub><mo>≥</mo><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>C</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">d_j\ge-(n-1)v_j\ge-(n-1)(N+n)=C.</annotation></semantics></math></p>
+<p>To check that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>k</mi></msub><mo>≥</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">d_k\ge C</annotation></semantics></math>
+persists, set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><msub><mi>d</mi><mi>k</mi></msub><mo>−</mo><mi>C</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h=d_k-C\ge0</annotation></semantics></math>.
+A step of length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+could cross below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
+only if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>+</mo><mi>a</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">h+a&lt;n</annotation></semantics></math>.
+In that case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>h</mi><mo>≤</mo><mi>n</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">0\le h\le n-2</annotation></semantics></math>,
+the endpoint is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>n</mi><mi>k</mi><mo>+</mo><mi>C</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">v_{k+1}=nk+C+h+a</annotation></semantics></math>,
+and its edge label is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>a</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>+</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>1</mn><mo>=</mo><mi>s</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>h</mi><mo>−</mo><mn>1</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">s(k)+a-(h+a)-1=s(k)-h-1\pmod n.</annotation></semantics></math></p>
+<p>Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>h</mi><mo>+</mo><mn>1</mn><mo>≤</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1\le h+1\le n-1</annotation></semantics></math>,
+this differs from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">s(k)</annotation></semantics></math>.
+Such a crossing cannot be matching. All relevant endpoints are beyond
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
+so the tail formula applies.</p>
+<p>Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>k</mi></msub><annotation encoding="application/x-tex">d_k</annotation></semantics></math>
+eventually stabilizes at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>≥</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">D\ge C</annotation></semantics></math>
+and every later edge has length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
+Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mi>D</mi><mo>−</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">h=D-C</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mi>h</mi><mrow><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>n</mi></mrow></mrow><annotation encoding="application/x-tex">b=h\bmod n</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>h</mi><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q=\lfloor h/n\rfloor+1&gt;0</annotation></semantics></math>.
+Matching then requires</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>s</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>n</mi><mo>−</mo><mi>b</mi><mo>−</mo><mn>1</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">s(k)=s(k+q)+n-b-1\pmod n</annotation></semantics></math></p>
+<p>for all sufficiently large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.
+Iterating
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+times gives the positive eventual period
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">nq</annotation></semantics></math>,
+a contradiction. This proves the lemma.</p>
+<p>Absence of a matching path from a fixed start is again open (depth
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
+reads only endpoints through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>+</mo><mi>n</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">i+nb</annotation></semantics></math>)
+and dense by this lemma. The same countable intersection and staged
+freezing arguments prove simultaneous avoidance and its effective
+version with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+roots and maximum outdegree
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.</p>
+<p>For a single target there is an even simpler formula: use the
+displayed label rule with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C=0</annotation></semantics></math>
+at <em>every</em> endpoint
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>≥</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">v\ge n</annotation></semantics></math>.
+The invariant starts at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>0</mn></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">v_0\ge0</annotation></semantics></math>,
+and the same proof applies immediately. This generalizes the original
+binary construction directly, without a binary code or vertex-copy
+degree overhead.</p>
+<p><strong>Optimality of the degree bound.</strong> In any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>-label
+population with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
+roots and maximum outdegree at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math>,
+take a finite birthdate sublevel set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+containing all roots and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+vertices. It is ancestor-closed. The incoming-label requirement gives at
+least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo>−</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n(M-R)</annotation></semantics></math>
+internal edges, while the outdegree assumption gives at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">(n-1)M</annotation></semantics></math>.
+Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≤</mo><mi>n</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">M\le nR</annotation></semantics></math>.
+Birthdate sublevels have unbounded size in an infinite population, a
+contradiction. Thus no such population exists below degree
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+at all. This counting obstruction was already recorded in the earlier
+supplement; the new point is attainment for arbitrary countable
+aperiodic target families. The one-symbol case has no aperiodic targets;
+an empty family admits a chain.</p>
+<h1 id="what-is-now-settled-and-what-is-not">6. What is now settled, and
+what is not</h1>
+<ul>
+<li>Arbitrary finite collections of aperiodic targets over a fixed
+finite alphabet can be avoided simultaneously; the result extends to
+countable collections. The smallest possible uniform outdegree is
+attained for every finite alphabet.</li>
+<li>In particular one population can avoid every shift and complement of
+Thue–Morse. It must nevertheless realize some other member of the
+Thue–Morse orbit closure, by the earlier subshift-intersection
+theorem.</li>
+<li>There is a population avoiding every computable aperiodic binary
+sequence. For the present
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>G</mi><mi>r</mi></msub><annotation encoding="application/x-tex">G_r</annotation></semantics></math>
+family, its labelling cannot be computable, as just shown. No claim
+about every other computable population presentation is made.</li>
+<li>All uncountable families cannot be handled in this way: the family
+of all aperiodic binary sequences is unavoidable as a set, since every
+binary population realizes continuum many aperiodic words. Countability
+is a sufficient hypothesis, not a proved necessary one for joint
+avoidance.</li>
+</ul>
+<p>The remaining questions include a characterization of jointly
+avoidable uncountable families, quantitative costs of the effective
+finite-extension construction, sharp Thue–Morse matching barriers, and
+the other embedding/ordinal variants in the original packet. None is
+silently resolved by the countable intersection.</p>
+<p>Finite controls in
+<code>evidence/44u-countable-avoidance-checks.py</code> check arbitrary
+short preserved prefixes, the shifted-offset boundary, and a small
+finite initial segment of the staged construction. They cannot certify
+countably many requirements; that conclusion uses the proofs above.</p>
+<p>Source: Samuel A. Alexander, <em>Biologically unavoidable
+sequences</em>, Electronic Journal of Combinatorics
+<strong>20</strong>(1) (2013), P31, <a
+href="https://doi.org/10.37236/3035">doi:10.37236/3035</a>. The
+finite-extension lemma and its use here are local continuations of the
+earlier proposed classification proof. Baire category and König’s lemma
+are standard antecedents, not new results claimed by this note.</p>
+</body>
+</html>

@@ -1,0 +1,255 @@
+---
+title: "Simultaneous avoidance of countable families"
+date: "21 September 2026 — continuation for discussion"
+geometry: margin=1in
+fontsize: 11pt
+---
+
+**Local theorem, with a hand proof below.** A countable family of sequences over
+a fixed finite alphabet has a single avoiding population if and only if none
+of its members is eventually periodic. For an alphabet of size $n\ge2$, the
+population can have $n$ roots and at most $n$ children per vertex, which is
+the smallest possible uniform outdegree bound. If the sequences have a
+uniformly computable enumeration and are all non-eventually-periodic, such
+a population can be constructed computably. Independent review and external
+priority checking remain; this addition has not been checked in Lean.
+
+The earlier explicit $P_s$ construction avoided one prescribed sequence;
+`complement-and-barriers.md` proves that it also avoids its complement. The
+present result treats arbitrary countable families, using a different label
+sequence built by successive finite extensions.
+
+# 1. A common space of populations
+
+For any $r\in\{0,1\}^{\mathbb N}$, let $G_r$ have vertices $\mathbb N$,
+birthdate $v$ at $v$, roots 0 and 1, and precisely these incoming edges for
+each $v\ge2$:
+
+$$v-1\longrightarrow v\text{ labelled }r(v),\qquad
+v-2\longrightarrow v\text{ labelled }1-r(v).$$
+
+There is no edge $0\to1$. Every $G_r$ satisfies the population axioms:
+infinite vertex set, finitely many roots, finite birthdate sublevels,
+birthdates increasing along edges, one incoming parent of each label at
+every non-root, and outdegree at most two. Every infinite path has increments
+one or two. The values $r(0),r(1)$ do not label edges but are harmless coordinates.
+
+# 2. Finite-extension lemma
+
+**Lemma.** Fix a non-eventually-periodic binary sequence $s$ and any prescribed
+prefix $r(0),\ldots,r(N)$, with $N\ge1$. There is an extension $r$ for which
+$G_r$ avoids $s$ from every starting vertex.
+
+Set $C=-N-2$ and prescribe the unassigned tail by
+
+$$r(v)=s\!\left(\left\lfloor\frac{v-C}{2}\right\rfloor\right)
+\mathbin{\mathrm{xor}}((v-C)\bmod2),\qquad v>N.$$
+
+All indices on the right are nonnegative. The old prefix is unchanged.
+Suppose there were an infinite $s$-matching path $v_0,v_1,\ldots$ and put
+$d_k=v_k-2k$. Each step changes $d_k$ by $-1$ or 0.
+
+Let $j$ be its first index with $v_j>N$; this exists because vertices strictly
+increase. If $j=0$, then $d_j=v_0\ge0>C$. Otherwise $v_j\le N+2$ because
+edges have length at most two. Also $j\le v_j$ because $v_0\ge0$ and every
+increment is at least one. Consequently
+
+$$d_j=v_j-2j\ge-v_j\ge-N-2=C.$$
+
+For $k\ge j$, the lower bound $d_k\ge C$ is invariant. At equality,
+$v_k=2k+C$ and an increment-one edge would have label
+
+$$r(v_k+1)=s(k)\mathbin{\mathrm{xor}}1,$$
+
+so it cannot match. If $d_k>C$, decreasing by at most one preserves the bound.
+The edge endpoints used here are beyond $N$, so the prescribed tail formula
+really applies; the arbitrary old prefix is no longer involved.
+
+The bounded nonincreasing integer $d_k$ therefore stabilizes at some $D\ge C$.
+All subsequent increments are two. Write $h=D-C\ge0$ and
+$q=\lfloor h/2\rfloor+1>0$. Matching the increment-two edge says
+
+$$s(k)=1-r(2k+D+2).$$
+
+For even $h$ this is $s(k)=1-s(k+q)$; for odd $h$ it is $s(k)=s(k+q)$.
+These give eventual periods $2q$ and $q$, respectively, contradicting the
+hypothesis on $s$. This proves the lemma, including arbitrary starts and
+arbitrary preserved finite prefixes.
+
+# 3. Simultaneous avoidance
+
+For a fixed target $s$ and start $i$, define
+
+$$U_{s,i}=\{r:G_r\text{ has no infinite }s\text{-matching path from }i\}.$$
+
+This set is open in Cantor space. The matching-prefix tree is finitely
+branching. By König's lemma, absence of an infinite branch means that some
+finite matching level is empty. A level of depth $b$ only reads labels at
+vertices at most $i+2b$, so its emptiness is preserved by fixing a finite
+prefix of $r$.
+
+If $s$ is non-eventually-periodic, $U_{s,i}$ is dense: any finite cylinder can
+first be extended through coordinate 1, then extended by the preceding lemma
+to a member of $U_{s,i}$.
+
+Now let $(s_j)_{j\in J}$ be a countable family of non-eventually-periodic
+binary sequences. The set of simultaneous avoiders is
+
+$$\bigcap_{j\in J}\bigcap_{i\in\mathbb N}U_{s_j,i}.$$
+
+It is a countable intersection of dense open sets in Cantor space, hence
+comeagre and nonempty by the Baire category theorem. Any member gives the
+required single two-root, degree-two population. An empty family is trivial.
+
+Conversely, a family containing an eventually periodic member cannot have an
+avoiding population, by Alexander's eventual-periodic unavoidability theorem
+(with the boundary repair recorded in `results.md`). This proves the stated
+classification for countable binary families.
+
+This is a category statement about the choice of **edge labels $r$**, not an
+almost-sure statement under random labels. No measure-one claim is made.
+
+# 4. Effective construction under a uniform promise
+
+The Baire proof can be implemented directly. Assume $s_j(k)$ is uniformly
+computable in $(j,k)$, with the promise that every $s_j$ is non-eventually
+periodic. Enumerate all requirements $(j,i)$, and maintain a finite prefix
+of $r$ extending through at least coordinate 1.
+
+At a stage for $(j,i)$:
+
+1. Form the lemma's temporary infinite extension of the current prefix using
+   target $s_j$.
+2. Enumerate the finite matching levels from $i$ in this temporary population
+   until the first empty level. The lemma and König's lemma guarantee that
+   this search terminates.
+3. Freeze all bits of that extension read by the search, together with at
+   least one further coordinate beyond the old prefix.
+
+The finite barrier for this requirement persists under every later extension.
+Every requirement is visited, and the prefix grows at every stage. To compute
+one desired output bit, run stages until that bit has been frozen. Each stage
+terminates and uses finitely many values of the uniformly computable targets,
+so the final $r$ is computable. The same construction works relative to an
+oracle presenting an arbitrary sequence of targets.
+
+No algorithm recognizing the promise is asserted. There is no contradiction
+with taking the countable family of **all computable aperiodic sequences**:
+the existence theorem handles that family, but it has no uniformly computable
+enumeration containing only aperiodic sequences and covering them all. Indeed,
+such an enumeration would yield a computable $r$ avoiding all of them. If
+$r$ were aperiodic, the increment-one path $1,2,3,\ldots$ would realize the
+computable aperiodic sequence $r(2),r(3),\ldots$, a contradiction. If $r$
+were eventually periodic, that same path realizes an eventually periodic
+word but does not by itself settle the contradiction; use instead the next
+paragraph's periodic-tail argument.
+
+If $r$ is eventually periodic with period $p$, $G_r$ realizes every binary
+sequence. For any desired finite word, choose its endpoint sufficiently far
+past the exceptional prefix and follow its uniquely labelled incoming
+parents backwards. All vertices of this finite path can be kept in the
+periodic tail. Translate the path backwards by a multiple of $p$ until its
+start lies in a fixed tail interval of $p$ vertices. The edge labels remain
+the same and all vertices remain in the tail. Arbitrarily long prescribed
+prefixes are thus realized from this finite set of starts. König's lemma
+gives an infinite realizing path. This proves universality and completes
+the contradiction for eventually periodic $r$ as well.
+
+# 5. Optimal degree for every finite alphabet
+
+Identify an alphabet of size $n\ge2$ with $\mathbb Z/n\mathbb Z$. Use vertices
+$\mathbb N$, roots $0,\ldots,n-1$, birthdate $v$, and, for each $v\ge n$,
+incoming edges $v-a\to v$, $1\le a\le n$. At each endpoint assign the $n$
+labels bijectively to these edges. All such assignments give populations of
+outdegree at most $n$. The parameter space is a product of finite permutation
+spaces, one for each endpoint, and is a Baire space.
+
+**General finite-extension lemma.** Preserve arbitrary incoming-label
+permutations at endpoints through $N\ge n-1$. For a fixed aperiodic target
+$s$, set $C=-(n-1)(N+n)$ and label all later edges by
+
+$$\ell(v-a,v)=s\!\left(\left\lfloor\frac{v-C}{n}\right\rfloor\right)
++a-((v-C)\bmod n)-1\pmod n,\qquad v>N.$$
+
+As $a$ ranges from 1 to $n$ these labels are a permutation, as required.
+Suppose $v_k$ were an infinite matching path and put $d_k=v_k-nk$.
+Its increments lie in $\{1-n,\ldots,0\}$. At the first entry $j$ into
+vertices beyond $N$, either $j=0$ and $d_j\ge0$, or $v_j\le N+n$ and
+$j\le v_j$, giving
+
+$$d_j\ge-(n-1)v_j\ge-(n-1)(N+n)=C.$$
+
+To check that $d_k\ge C$ persists, set $h=d_k-C\ge0$. A step of length
+$a$ could cross below $C$ only if $h+a<n$. In that case $0\le h\le n-2$,
+the endpoint is $v_{k+1}=nk+C+h+a$, and its edge label is
+
+$$s(k)+a-(h+a)-1=s(k)-h-1\pmod n.$$
+
+Since $1\le h+1\le n-1$, this differs from $s(k)$. Such a crossing cannot
+be matching. All relevant endpoints are beyond $N$, so the tail formula
+applies.
+
+Thus $d_k$ eventually stabilizes at $D\ge C$ and every later edge has length
+$n$. Write $h=D-C$, $b=h\bmod n$ and $q=\lfloor h/n\rfloor+1>0$.
+Matching then requires
+
+$$s(k)=s(k+q)+n-b-1\pmod n$$
+
+for all sufficiently large $k$. Iterating $n$ times gives the positive
+eventual period $nq$, a contradiction. This proves the lemma.
+
+Absence of a matching path from a fixed start is again open (depth $b$ reads
+only endpoints through $i+nb$) and dense by this lemma. The same countable
+intersection and staged freezing arguments prove simultaneous avoidance and
+its effective version with $n$ roots and maximum outdegree $n$.
+
+For a single target there is an even simpler formula: use the displayed label
+rule with $C=0$ at *every* endpoint $v\ge n$. The invariant starts at
+$v_0\ge0$, and the same proof applies immediately. This generalizes the
+original binary construction directly, without a binary code or vertex-copy
+degree overhead.
+
+**Optimality of the degree bound.** In any $n$-label population with $R$
+roots and maximum outdegree at most $n-1$, take a finite birthdate sublevel
+set $F$ containing all roots and $M$ vertices. It is ancestor-closed. The
+incoming-label requirement gives at least $n(M-R)$ internal edges, while
+the outdegree assumption gives at most $(n-1)M$. Hence $M\le nR$.
+Birthdate sublevels have unbounded size in an infinite population, a
+contradiction. Thus no such population exists below degree $n$ at all.
+This counting obstruction was already recorded in the earlier supplement;
+the new point is attainment for arbitrary countable aperiodic target families.
+The one-symbol case has no aperiodic targets; an empty family admits a chain.
+
+# 6. What is now settled, and what is not
+
+- Arbitrary finite collections of aperiodic targets over a fixed finite
+  alphabet can be avoided simultaneously; the result extends to countable
+  collections. The smallest possible uniform outdegree is attained for
+  every finite alphabet.
+- In particular one population can avoid every shift and complement of
+  Thue–Morse. It must nevertheless realize some other member of the
+  Thue–Morse orbit closure, by the earlier subshift-intersection theorem.
+- There is a population avoiding every computable aperiodic binary sequence.
+  For the present $G_r$ family, its labelling cannot be computable, as just
+  shown. No claim about every other computable population presentation is made.
+- All uncountable families cannot be handled in this way: the family of all
+  aperiodic binary sequences is unavoidable as a set, since every binary
+  population realizes continuum many aperiodic words. Countability is a
+  sufficient hypothesis, not a proved necessary one for joint avoidance.
+
+The remaining questions include a characterization of jointly avoidable
+uncountable families, quantitative costs of the effective finite-extension construction, sharp
+Thue–Morse matching barriers, and the other embedding/ordinal variants in the
+original packet. None is silently resolved by the countable intersection.
+
+Finite controls in `evidence/44u-countable-avoidance-checks.py` check arbitrary
+short preserved prefixes, the shifted-offset boundary, and a small finite
+initial segment of the staged construction. They cannot certify countably
+many requirements; that conclusion uses the proofs above.
+
+Source: Samuel A. Alexander, *Biologically unavoidable sequences*, Electronic
+Journal of Combinatorics **20**(1) (2013), P31,
+[doi:10.37236/3035](https://doi.org/10.37236/3035). The finite-extension lemma
+and its use here are local continuations of the earlier proposed classification
+proof. Baire category and König's lemma are standard antecedents, not new
+results claimed by this note.

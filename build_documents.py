@@ -5,9 +5,12 @@ import subprocess
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--allow-downloads', action='store_true')
+parser.add_argument('--stems', nargs='+', default=[
+    'results', 'additional-results', 'complement-and-barriers', 'countable-avoidance'],
+    choices=['results', 'additional-results', 'complement-and-barriers', 'countable-avoidance'])
 args = parser.parse_args()
 root = Path(__file__).resolve().parent
-for stem in ['results', 'additional-results']:
+for stem in args.stems:
     subprocess.run(['pandoc', stem + '.md', '-s', '--mathml', '--metadata', 'lang=en', '-o', stem + '.html'], cwd=root, check=True)
     subprocess.run(['pandoc', stem + '.md', '-s', '-o', stem + '.tex'], cwd=root, check=True)
     command = ['tectonic', '--keep-logs']

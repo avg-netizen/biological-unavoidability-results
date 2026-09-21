@@ -254,7 +254,14 @@ For a fixed aperiodic $s$, breadth-first matching from any vertex terminates
 with an empty set by §1 and König's lemma. There is no bound uniform in the
 target even for starting vertex 1: a target with $N+1$ initial zeros and an
 aperiodic tail admits $N$ matching edges along $v_k=1+2k$. Obtaining useful
-explicit bounds for the fixed Thue–Morse target remains a quantitative question.
+explicit bounds for the fixed Thue–Morse target was left as a quantitative
+question in the September 10 packet. **September 20/21 update:** the separate
+[complement-and-barriers addendum](complement-and-barriers.md) supplies an
+$O((i+1)\log(i+2))$ cutoff from start $i$; sharp growth remains open. The
+[countable-avoidance addendum](countable-avoidance.md) also proves that any
+prescribed countable family of aperiodic targets can be avoided simultaneously,
+with optimal uniform outdegree for every finite alphabet. These new hand
+proofs are not included in the older Lean coverage described below.
 
 # Verification and questions for discussion
 

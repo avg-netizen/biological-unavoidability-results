@@ -1,5 +1,5 @@
 **
-(results.tex
+(complement-and-barriers.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-02-24> (article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
@@ -362,8 +362,8 @@ File: bkm-dvipdfm.def 2020-11-06 v1.29 bookmark driver for dvipdfm (HO)
 )) (xurl.sty
 Package: xurl 2022/01/09 v 0.10 modify URL breaks
 )
-(results.aux)
-\openout1 = `results.aux'.
+(complement-and-barriers.aux)
+\openout1 = `complement-and-barriers.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 61.
 LaTeX Font Info:    ... okay on input line 61.
@@ -752,23 +752,23 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.665pt on input line 87.
+(Font)              scaled to size 7.665pt on input line 75.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.475pt on input line 87.
+(Font)              scaled to size 5.475pt on input line 75.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.95099pt on input line 87.
+(Font)              scaled to size 10.95099pt on input line 75.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.66568pt on input line 87.
+(Font)              scaled to size 7.66568pt on input line 75.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.4755pt on input line 87.
+(Font)              scaled to size 5.4755pt on input line 75.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.94882pt on input line 87.
+(Font)              scaled to size 10.94882pt on input line 75.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.66417pt on input line 87.
+(Font)              scaled to size 7.66417pt on input line 75.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.47441pt on input line 87.
+(Font)              scaled to size 5.47441pt on input line 75.
  [1
 
 ] [2] [3] [4]
-[5] [6] (results.aux) )
-Output written on results.xdv (6 pages, 150748 bytes).
+(complement-and-barriers.aux) )
+Output written on complement-and-barriers.xdv (4 pages, 80768 bytes).
